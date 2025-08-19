@@ -6,20 +6,21 @@
 </head>
 <body>
     <h1>Edit Book</h1>
-    <form method="post" action="/Books-System/public/Books">
-        <input type="hidden" name="id" value="<?= htmlspecialchars((string)$book['id']) ?>">
+
+    <form method="POST" action="/Books-System/public/Books/update/<?= htmlspecialchars($single['id']) ?>">
+        <input type="hidden" name="id" value="<?= htmlspecialchars($single['id']) ?>">
         
         <label>Title:</label>
-        <input type="text" name="title" value="<?= htmlspecialchars($book['title']) ?>" required><br><br>
+        <input type="text" name="title" value="<?= htmlspecialchars($single['title'])  ?>" required><br><br>
         
         <label>Author:</label>
-        <input type="text" name="author" value="<?= htmlspecialchars($book['author']) ?>" required><br><br>
+        <input type="text" name="author" value="<?= htmlspecialchars($single['author'])?>" required><br><br>
         
-        <label>Year:</label>
-        <input type="number" name="year" value="<?= htmlspecialchars((string)$book['copies_available']) ?>" required><br><br>
+       <label>Copies:</label>
+       <input type="number" name="copies_available" value="<?= htmlspecialchars($single['copies_available']) ?>" required><br><br>
 
-         <label>Copies:</label>
-        <input type="date" name="year" value="<?= htmlspecialchars((string)$book['created_at']) ?>" required><br><br>
+        <label>Created At:</label>
+        <input type="date" name="created_at" value="<?= htmlspecialchars($single['created_at']) ?>" required><br><br>
         
         <button type="submit">Update</button>
     </form>

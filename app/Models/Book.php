@@ -6,7 +6,7 @@ use App\Core\App;
 use App\Traits\LoggingTrait; 
 use App\Traits\SearchableTrait;
 class Book{
-
+ use LoggingTrait;
     function all(){
         
         $stm=App::db()->prepare("SELECT * FROM books");
@@ -23,10 +23,10 @@ class Book{
         return $stmt->fetch();
     }
 
-   public function create($title, $author, $copies, $created_at){
+    public function create($title, $author, $copies, $created_at){
     $stmt = App::db()->prepare(
         "INSERT INTO books (title, author, copies_available, created_at) 
-         VALUES (:title, :author, :copies_available, :created_at)"
+            VALUES (:title, :author, :copies_available, :created_at)"
     );
 
     $stmt->bindParam(':title', $title);
@@ -38,29 +38,33 @@ class Book{
     $this->log("Book created: $title");
     }
 
- public function update($id, $title, $author, $copies, $created_at){
+public function update($id, $title, $author, $copies, $created_at){
     $stmt = App::db()->prepare(
-        "UPDATE books SET title=:title, author=:author, copies_available=:copies, created_at=:created_at WHERE id=:id"
+        "UPDATE books 
+         SET title = :title, 
+             author = :author, 
+             copies_available = :copies_available, 
+             created_at = :created_at 
+         WHERE id = :id"
     );
 
     $stmt->bindParam(':id', $id);
     $stmt->bindParam(':title', $title);
     $stmt->bindParam(':author', $author);
-    $stmt->bindParam(':copies', $copies);
+    $stmt->bindParam(':copies_available', $copies);
     $stmt->bindParam(':created_at', $created_at);
 
     return $stmt->execute();
-     $this->log("Book updated: $title");
-     
-       }
- 
+    $this->log("Book update: $title");
+}
+
    
     
 
-    public function delete($id){
+     public function delete($id){
         $stmt = App::db()->prepare("DELETE FROM books WHERE id=:id");
         $stmt->execute(['id'=>$id]);
-        $this->log("Book deleted: $id");
+        $this->log("Book deleted: $id"); 
     }
 
     // Example Transaction: Borrow Book
@@ -81,25 +85,4 @@ class Book{
         }
     }
 
-    // function find($id){
-    //     $stm=App::db()->prepare("SELECT * FROM posts WHERE id=:id");
-    //     $stm->execute(['id'=>$id]);
-    //     $stm->fetchAll();
-    // }
-
-    // function create($title,$body){
-        
-    //     $stm=App::db()->prepare("INSERT INTO posts(title,body) VALUES (:title,:body)");
-    //     $stm->execute(['title'=>$title,'body'=>$body]);
-    // }
-
-    // function update(){
-    //     $stm= App::db()->prepare("UPDATE posts SET title='new title', body='this is new body'");
-    //     $stm->execute();
-    // }
-
-    // function delete($id){
-    //     $stm= App::db()->prepare("DELETE FROM posts WHERE id=:id");
-    //     $stm->execute(['id'=>$id]);
-    // }
 }

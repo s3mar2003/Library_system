@@ -22,7 +22,7 @@
                     <td><?= htmlspecialchars($book['copies_available']) ?></td>
                     <td><?= htmlspecialchars((string)$book['created_at']) ?></td>
                     <td>
-                          <a href="/Books-System/public/Books/edit=<?= urlencode((string)$book['id']) ?>">Edit</a> |
+                          <a href="/Books-System/public/Books/edit/<?= urlencode((string)$book['id']) ?>">Edit</a> |
                         <a href="delete.php?id=<?= urlencode((string)$book['id']) ?>"
                            onclick="return confirm('Are you sure?')">Delete</a>
                     </td>

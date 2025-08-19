@@ -11,14 +11,14 @@ class BookController{
 
         $books=$book->all();
 
-       require __DIR__ .'/../views/books/index.php';
+       require __DIR__ . '/../views/Books/index.php';
 
     }
 
   
 
     function create(){
-        require __DIR__.'/../views/books/create.php';
+        require __DIR__.'/../views/Books/create.php';
     }
 
     function store(){
@@ -31,22 +31,24 @@ class BookController{
         }
     }
 
-    function edit($id){
+  
+
+        function edit($id){
         $book = new Book();
-        echo"12444";
         $single = $book->find($id);
-        require __DIR__.'/../views/books/edit.php';
-    }
+        require __DIR__.'/../views/Books/edit.php';
+        }
+
+
 
     function update(){
         $book = new Book();
         $book->update($_POST['id'], $_POST['title'], $_POST['author'], $_POST['copies_available'],$_POST['created_at']);
-        $this->index();
+        header('Location: /Books-System/public/Books'); 
     }
 
-    function delete(){
-        $book = new Book();
-        $book->delete($_POST['id']);
-        $this->index();
-    }
+    function delete($id){
+    $book = new Book();
+    $book->delete($id);
+header('Location: /Books-System/public/Books');     }
 }

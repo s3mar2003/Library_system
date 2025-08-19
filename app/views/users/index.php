@@ -6,11 +6,11 @@
 </head>
 <body>
     <h1>All Users</h1>
-    <a href="create.php">+ Add New User</a>
+    <a href="users/create">+ Add New User</a>
     <table border="1" cellpadding="10">
         <thead>
             <tr>
-                <th>ID</th><th>Name</th><th>Email</th><th>Actions</th>
+                <th>ID</th><th>Name</th><th>Email</th><th>Password</th><th>Creste_at</th><th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,9 +19,11 @@
                     <td><?= htmlspecialchars((string)$user['id']) ?></td>
                     <td><?= htmlspecialchars($user['name']) ?></td>
                     <td><?= htmlspecialchars($user['email']) ?></td>
+                    <td><?= htmlspecialchars($user['password']) ?></td>
+                    <td><?= htmlspecialchars($user['created_at']) ?></td>
                     <td>
-                       <a href="/Books-System/public/Books/edit=<?= urlencode((string)$book['id']) ?>">Edit</a> |
-                        <a href="delete.php?id=<?= urlencode((string)$user['id']) ?>"
+                       <a href="users/edit/<?= urlencode((string)$user['id']) ?>">Edit</a> |
+                        <a href="users/delete/<?= urlencode((string)$user['id']) ?>"
                            onclick="return confirm('Are you sure?')">Delete</a>
                     </td>
                 </tr>
